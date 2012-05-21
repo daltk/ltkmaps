@@ -22,3 +22,5 @@ group :production do
 end
 
 gem 'tlsmail'
+
+gem 'therubyracer'
