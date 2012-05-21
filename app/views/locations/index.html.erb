@@ -1,0 +1,15 @@
+
+<%= form_tag locations_path, :method => :get do |f| %>
+  <p>
+    <%= text_field_tag :search, params[:search], :size => "800", :placeholder => "Search Location",:class => "round shadow" %>
+    
+    <%= submit_tag "Search Near By Location", :name => nil %>
+  </p>
+<% end %>
+
+
+<%= gmaps("markers" => {"data" => @json},
+          "map_options" => { "auto_adjust" => true, "minZoom" => 0},
+          "circles" => { "data" => @circles    , "options" => { "fillColor" => "#00FFFF", "strokeColor" => "#FF0000" } }
+) %>
+

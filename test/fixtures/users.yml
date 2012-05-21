@@ -1,0 +1,65 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  first_name: MyString
+  middle_name: MyString
+  last_name: MyString
+  role: MyString
+  category: MyString
+  game: MyString
+  skill_level: MyString
+  specialization: MyString
+  street_number: 1
+  street_name: MyText
+  street_direction: MyText
+  city: MyString
+  state: MyString
+  zipcode_1: MyString
+  zipcode_2: MyString
+  phone: MyString
+  email: MyText
+  fu_street_number: 1
+  fu_street_name: MyText
+  fu_street_direction: MyText
+  fu_city: MyString
+  fu_state: MyString
+  fu_zipcode_1: MyString
+  fu_from: MyText
+  fu_to: MyText
+  blank_field_1: MyString
+  blank_field_2: MyString
+  blank_field_3: MyString
+  blank_field_4: MyString
+  blank_field_5: MyString
+
+two:
+  first_name: MyString
+  middle_name: MyString
+  last_name: MyString
+  role: MyString
+  category: MyString
+  game: MyString
+  skill_level: MyString
+  specialization: MyString
+  street_number: 1
+  street_name: MyText
+  street_direction: MyText
+  city: MyString
+  state: MyString
+  zipcode_1: MyString
+  zipcode_2: MyString
+  phone: MyString
+  email: MyText
+  fu_street_number: 1
+  fu_street_name: MyText
+  fu_street_direction: MyText
+  fu_city: MyString
+  fu_state: MyString
+  fu_zipcode_1: MyString
+  fu_from: MyText
+  fu_to: MyText
+  blank_field_1: MyString
+  blank_field_2: MyString
+  blank_field_3: MyString
+  blank_field_4: MyString
+  blank_field_5: MyString

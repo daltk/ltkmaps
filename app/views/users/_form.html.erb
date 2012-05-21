@@ -1,0 +1,106 @@
+<%= simple_form_for @user, :html => { :class => 'form-horizontal' } do |f| %>
+
+  
+  <% if f.error_notification %>
+    <div class="alert alert-error fade in">
+      <a class="close" data-dismiss="alert" href="#">&times;</a>
+      <%= f.error_notification %>
+    </div>
+  <% end %>
+
+  <div class="form-inputs">
+
+   <legend>User Details</legend>
+
+  <%= f.input :first_name, :input_html => { :class => "span4" },
+              :hint => "add your first name here" %>
+            
+  <%= f.input :middle_name, :input_html => { :class => "span4" },
+              :hint => "add your middle name here" %>
+            
+  <%= f.input :last_name, :input_html => { :class => "span4" },
+              :hint => "add your last name here" %>
+  
+  <%= f.input :phone, :input_html => { :class => "span4" },
+              :hint => "add your phone number here" %>
+            
+  
+  <%= f.input :email, :input_html => { :class => "span4" },
+              :hint => "add your email here" %>
+  
+  <%= f.input :password, :input_html => { :class => "span4" },
+              :hint => "add your password here" %>
+  
+  <%= f.input :role, :collection => ['Player','Coach'],
+              :as => :radio_buttons, :item_wrapper_class => 'inline',
+             :label => 'Role',
+             :hint => "select the user role" %>
+
+
+  <%= f.input :category, :collection => ['Sports'],
+              :item_wrapper_class => 'inline',
+             :label => 'Category',
+             :hint => "select the category" %>
+  
+  
+  <%= f.input :game, :collection => ['Soccer', 'Tennis'],
+              :item_wrapper_class => 'inline',
+             :label => 'Game',
+             :hint => "select the game" %>
+  
+   <%= f.input :specialization, :collection => ['Beginer', 'Intermediate', 'Expert'],
+             :item_wrapper_class => 'inline',
+             :label => 'Specialization',
+             :hint => "select specialization" %>
+           
+  <legend> Address Details</legend><br/>
+
+    <%= f.input :street_number, :input_html => { :class => "span4" },
+              :hint => "add your street number here" %>
+            
+    <%= f.input :street_name, :input_html => { :class => "span4" },
+              :hint => "add your street name here" %>
+            
+    <%= f.input :city, :input_html => { :class => "span4" },
+              :hint => "add your city here" %>
+            
+    <%= f.input :state, :input_html => { :class => "span4" },
+              :hint => "add your state here" %>
+            
+    <%= f.input :zipcode_1, :input_html => { :class => "span4" },:label => 'Zip Code',
+              :hint => "add your Zip Code here" %>
+            
+    <%= f.input :zipcode_2, :input_html => { :class => "span4" },:label => 'Zip Code2',
+              :hint => "add your Zip Code 2 here" %>
+            
+
+  <legend> Future Address details </legend><br/>
+
+    <%= f.input :fu_street_number, :input_html => { :class => "span4" },:label => 'Future Street Number',
+              :hint => "add your street number here" %>
+            
+    <%= f.input :fu_street_name, :input_html => { :class => "span4" },:label => 'Future Street Name',
+              :hint => "add your street name here" %>
+            
+    <%= f.input :fu_city, :input_html => { :class => "span4" },:label => 'Future City',
+              :hint => "add your city here" %>
+            
+    <%= f.input :fu_state, :input_html => { :class => "span4" },:label => 'Future State',
+              :hint => "add your state here" %>
+            
+    <%= f.input :fu_zipcode_1, :input_html => { :class => "span4" },:label => 'Future Zip Code',
+              :hint => "add your Zip Code here" %>
+       
+    <%= f.input :fu_from, :input_html => { :class => "span1" },:label => 'Future From Date',
+              :hint => "add your From Date here" %>
+    
+    <%= f.input :fu_to, :input_html => { :class => "span1" },:label => 'Future To Date',
+              :hint => "add your To Date here" %>
+            
+  
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

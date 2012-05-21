@@ -1,0 +1,8 @@
+development:
+  host: localhost
+  adapter: postgresql
+  database: maps_may19
+  username: hubworks
+  password: vegpuf
+## YAML Template.
+

@@ -1,0 +1,5 @@
+(in /Users/rajeshwarmothe/Desktop/rajeshwar/bootstrap)
+rake aborted!
+uninitialized constant Rake::DSL
+/Users/rajeshwarmothe/Desktop/rajeshwar/bootstrap/Rakefile:7
+(See full trace by running task with --trace)

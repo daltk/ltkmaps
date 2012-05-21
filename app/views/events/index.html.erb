@@ -1,0 +1,41 @@
+<% content_for :breadcrumb do %>
+  <li class="active">Home</li>
+<% end %>
+
+<%#= session[:user] %>
+
+<div class="well"> 
+  <%= link_to 'Create a new event', new_event_path, :class => 'btn btn-primary' %> <br/>
+</div>
+
+<h1>My Events</h1><br/><br/>
+
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Event Name</th>
+      <th>Event Address</th>
+      <th>&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @events.each do |event| %>
+      <tr>
+        <td><%= event.id %>
+        <td><%= event.name %></td>
+        <td><%= event.street_number %> <%= event.street_name %> <%= event.city %> <%= event.state %></td>
+        <td>
+          <%= link_to 'Edit', edit_event_path(event) %>  /
+          <%= link_to 'Delete', event, :confirm => 'Are you sure?', :method => :delete %> /
+          <%= link_to 'View Map', '/locations?utf8=✓&search='+event.street_number.to_s+' '+event.street_name.to_s + ' ' + event.city.to_s + ' ' +event.state.to_s %>  /
+          <%= link_to 'Remind Users', edit_event_path(event) %>  
+        </td>
+      </tr>
+    <% end %>
+
+  </tbody>
+</table>
+
+

@@ -1,0 +1,80 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @event.name %>
+</p>
+
+<p>
+  <b>Street number:</b>
+  <%= @event.street_number %>
+</p>
+
+<p>
+  <b>Street name:</b>
+  <%= @event.street_name %>
+</p>
+
+<p>
+  <b>Street direction:</b>
+  <%= @event.street_direction %>
+</p>
+
+<p>
+  <b>City:</b>
+  <%= @event.city %>
+</p>
+
+<p>
+  <b>State:</b>
+  <%= @event.state %>
+</p>
+
+<p>
+  <b>Zipcode:</b>
+  <%= @event.zipcode %>
+</p>
+
+<p>
+  <b>Location radious:</b>
+  <%= @event.location_radious %>
+</p>
+
+<p>
+  <b>Created by:</b>
+  <%= @event.created_by %>
+</p>
+
+<p>
+  <b>Date time:</b>
+  <%= @event.date_time %>
+</p>
+
+<p>
+  <b>Blank field 1:</b>
+  <%= @event.blank_field_1 %>
+</p>
+
+<p>
+  <b>Blank field 2:</b>
+  <%= @event.blank_field_2 %>
+</p>
+
+<p>
+  <b>Blank field 3:</b>
+  <%= @event.blank_field_3 %>
+</p>
+
+<p>
+  <b>Blank field 4:</b>
+  <%= @event.blank_field_4 %>
+</p>
+
+<p>
+  <b>Blank field 5:</b>
+  <%= @event.blank_field_5 %>
+</p>
+
+
+<%= link_to 'Edit', edit_event_path(@event) %> |
+<%= link_to 'Back', events_path %>

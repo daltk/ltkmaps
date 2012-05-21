@@ -1,0 +1,56 @@
+<%= simple_form_for @event, :html => { :class => 'form-horizontal' } do |f| %>
+
+  
+  <% if f.error_notification %>
+    <div class="alert alert-error fade in">
+      <a class="close" data-dismiss="alert" href="#">&times;</a>
+      <%= f.error_notification %>
+    </div>
+  <% end %>
+
+  <div class="form-inputs">
+
+   <legend>Event Details</legend>
+
+  <%= f.input :name, :input_html => { :class => "span4" },
+              :hint => "add your event name here" %>
+            
+   <%= f.input :location_radious, :collection => ['5', '10', '15','20','25','30','35','40','45','50'],
+             :item_wrapper_class => 'inline',
+             :label => 'Location Radious',:input_html => { :class => "span1" },
+             :hint => "select localtion radious for the event in miles" %>
+           
+            
+  <%= f.input :start_date, :input_html => { :class => "span1" },:label => 'Event Start Date',
+              :hint => "add your event start date here" %>
+            
+  <%= f.input :end_date, :input_html => { :class => "span1" },:label => 'Event End Date',
+              :hint => "add your event end here" %>
+            
+  <legend>Event Address Details</legend><br/>
+
+    <%= f.input :street_number, :input_html => { :class => "span4" },
+              :hint => "add your street number here" %>
+            
+    <%= f.input :street_name, :input_html => { :class => "span4" },
+              :hint => "add your street name here" %>
+            
+    <%= f.input :city, :input_html => { :class => "span4" },
+              :hint => "add your city here" %>
+            
+    <%= f.input :state, :input_html => { :class => "span4" },
+              :hint => "add your state here" %>
+            
+    <%= f.input :zipcode, :input_html => { :class => "span4" },:label => 'Zip Code',
+              :hint => "add your alternative Zip Code here" %>
+            
+
+  
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
+
+

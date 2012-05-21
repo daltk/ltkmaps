@@ -1,0 +1,35 @@
+<% content_for :breadcrumb do %>
+  <li class="active">Home</li>
+<% end %>
+
+<h1>Listing Users</h1>
+
+<div class="well">
+  <%= link_to 'New user', new_user_path, :class => 'btn btn-primary' %>
+</div>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Address</th>
+      <th>&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.id %>
+        <td><%= user.first_name %></td>
+        <td><%= user.street_number %> <%= user.street_name %> <%= user.city %> <%= user.state %></td>
+        <td>
+          <%= link_to 'Edit', edit_user_path(user) %>  /
+          <%= link_to 'Delete', user, :confirm => 'Are you sure?', :method => :delete %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
