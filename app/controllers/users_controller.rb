@@ -93,7 +93,7 @@ logger.info "fu_add: #{@loc1.inspect}"
 
         format.html { redirect_to '/', :notice => 'You have registered successfully. Please login to create your events.' }
         format.json { render :json => @user, :status => :created, :location => @user }
-        UserMailer.registration_confirmation(@user).deliver 
+        #UserMailer.registration_confirmation(@user).deliver 
 
       else
         format.html { render :action => "new" }
