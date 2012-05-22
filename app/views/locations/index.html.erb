@@ -1,3 +1,8 @@
+<% if params[:q] then %>   
+    <p class="signup-info"> <a class="btn btn-primary btn-large" href="/events">  Event looks good. Save this event   &raquo;</a>&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;
+<% str = '/remove_event?eid='+params[:q]%>
+    <a class="btn btn-primary btn-large" href=<%= str%>>Event does not look good. Create other event &raquo;</a>&nbsp;&nbsp;&nbsp;&nbsp;<br/><br/> </p>
+<% else %>
 
 <%= form_tag locations_path, :method => :get do |f| %>
   <p>
@@ -5,6 +10,8 @@
     
     <%= submit_tag "Search Near By Location", :name => nil %>
   </p>
+<% end %>
+
 <% end %>
 
 

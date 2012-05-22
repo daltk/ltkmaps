@@ -1,7 +1,8 @@
 class Event < ActiveRecord::Base
-  belongs_to :user
+  #belongs_to :user
 
   validates_presence_of :name
+  validates_presence_of :event_type
   validates_presence_of :location_radious
   validates_presence_of :start_date
   validates_presence_of :end_date

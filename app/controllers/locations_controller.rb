@@ -1,8 +1,9 @@
 class LocationsController < ApplicationController
   def index
     if params[:search].present?
-      @locations = Location.near(params[:search], 25, :order => :distance)
-      @json = Location.near(params[:search], 25, :order => :distance).to_gmaps4rails do |location, marker|
+      @event = Event.find(params[:event_id])
+      @locations = Location.near(params[:search], @event.location_radious, :order => :distance)
+      @json = Location.near(params[:search], @event.location_radious, :order => :distance).to_gmaps4rails do |location, marker|
         marker.json({ :id => location.id, :address => location.address })
         if location.address != params[:search] then
           marker.picture({
@@ -12,11 +13,11 @@ class LocationsController < ApplicationController
             })
         end
       end
-
+      radious_for_circle = (@event.location_radious*1609.34).round
       @loc = Location.find_by_address(params[:search])
   
       @circles = '[
-                          {"lng": '+@loc.longitude.to_s+', "lat": '+@loc.latitude.to_s+', "radius": 40234},
+                          {"lng": '+@loc.longitude.to_s+', "lat": '+@loc.latitude.to_s+', "radius": '+radious_for_circle.to_s+'},
                  ]' unless @loc.nil?
     else
       @locations = Location.all

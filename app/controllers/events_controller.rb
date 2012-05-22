@@ -42,7 +42,7 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(params[:event])
     event = @event
-    event.update_attributes('user_id',session[:user])
+  #  event.update_attributes('user_id',session[:user])
     event_address = event.street_number.to_s+' '+ event.street_name.to_s + ' '+ event.city.to_s + ' ' + event.state.to_s
     h = Hash.new
     h['address'] = event_address
@@ -54,13 +54,23 @@ logger.info "Hash = #{h.inspect}"
         @loc = Location.new(h)
         @loc.save
 logger.info "Location = #{@loc.inspect}"
-
-        format.html { redirect_to @event, :notice => 'Event was successfully created.' }
+        @redirect_str = '/locations?utf8=✓&q='+event.id.to_s+'&search='+event.street_number.to_s+' '+event.street_name.to_s + ' ' + event.city.to_s + ' ' +event.state.to_s+'&event_id='+event.id.to_s
+        format.html { redirect_to @redirect_str }
         format.json { render :json => @event, :status => :created, :location => @event }
       else
         format.html { render :action => "new" }
         format.json { render :json => @event.errors, :status => :unprocessable_entity }
       end
+    end
+  end
+
+  def remove_event
+    @event = Event.find(params[:eid])
+    @event.destroy
+
+    respond_to do |format|
+      format.html { redirect_to events_url }
+      format.json { head :no_content }
     end
   end
 

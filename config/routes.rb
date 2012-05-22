@@ -18,5 +18,7 @@ SimpleFormBootstrap::Application.routes.draw do
 
   match '/users/sign_in' => 'users#sign_in'
 
+  match '/remove_event' => 'events#remove_event'
+
   
 end

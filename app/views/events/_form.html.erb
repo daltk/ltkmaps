@@ -14,7 +14,12 @@
 
   <%= f.input :name, :input_html => { :class => "span4" },
               :hint => "add your event name here" %>
-            
+
+   <%= f.input :event_type, :collection => ['Football Event', 'Music Event', 'Tennis Event','Amrican football Match'],
+             :item_wrapper_class => 'inline',
+             :label => 'Event Type',:input_html => { :class => "span4" },
+             :hint => "select event type for the event" %>
+
    <%= f.input :location_radious, :collection => ['5', '10', '15','20','25','30','35','40','45','50'],
              :item_wrapper_class => 'inline',
              :label => 'Location Radious',:input_html => { :class => "span1" },

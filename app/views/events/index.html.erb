@@ -29,7 +29,7 @@
         <td>
           <%= link_to 'Edit', edit_event_path(event) %>  /
           <%= link_to 'Delete', event, :confirm => 'Are you sure?', :method => :delete %> /
-          <%= link_to 'View Map', '/locations?utf8=✓&search='+event.street_number.to_s+' '+event.street_name.to_s + ' ' + event.city.to_s + ' ' +event.state.to_s %>  /
+          <%= link_to 'View Map', '/locations?utf8=✓&search='+event.street_number.to_s+' '+event.street_name.to_s + ' ' + event.city.to_s + ' ' +event.state.to_s+'&event_id='+event.id.to_s %>  /
           <%= link_to 'Remind Users', edit_event_path(event) %>  
         </td>
       </tr>
