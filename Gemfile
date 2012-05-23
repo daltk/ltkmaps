@@ -19,6 +19,7 @@ gem 'simple_form', '~> 2.0.0'
 
 group :production do
   gem 'pg'
+  gem 'therubyracer'
 end
 
 gem 'tlsmail'
