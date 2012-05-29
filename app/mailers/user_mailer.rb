@@ -4,4 +4,8 @@ class UserMailer < ActionMailer::Base
     mail(:to => user.email, :subject => "Registration Successful.", :from => "rajkishan.m@gmail.com")  
   end
 
+   def send_event_reminders(user)  
+    mail(:to => user.email, :subject => "Event Reminder sent.", :from => "rajkishan.m@gmail.com")  
+  end
+
 end

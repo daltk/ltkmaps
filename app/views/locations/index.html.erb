@@ -1,5 +1,6 @@
-<% if params[:q] then %>   
-    <p class="signup-info"> <a class="btn btn-primary btn-large" href="/events">  Event looks good. Save this event   &raquo;</a>&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;
+<% if params[:q] then %> 
+<% str1 = '/send_event_reminders?eid='+params[:q]%>  
+    <p class="signup-info"> <a class="btn btn-primary btn-large" href=<%= str1%>>  Event looks good. Save this event   &raquo;</a>&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;
 <% str = '/remove_event?eid='+params[:q]%>
     <a class="btn btn-primary btn-large" href=<%= str%>>Event does not look good. Create other event &raquo;</a>&nbsp;&nbsp;&nbsp;&nbsp;<br/><br/> </p>
 <% else %>

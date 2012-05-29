@@ -42,7 +42,7 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(params[:event])
     event = @event
-  #  event.update_attributes('user_id',session[:user])
+
     event_address = event.street_number.to_s+' '+ event.street_name.to_s + ' '+ event.city.to_s + ' ' + event.state.to_s
     h = Hash.new
     h['address'] = event_address
@@ -54,7 +54,7 @@ class EventsController < ApplicationController
 
         @loc.update_attribute('event_id',event.id)
         @loc.update_attribute('user_id',session[:user])
-
+        @event.update_attribute('user_id',session[:user])
 
         @redirect_str = '/locations?q='+event.id.to_s+'&search='+event.street_number.to_s+' '+event.street_name.to_s + ' ' + event.city.to_s + ' ' +event.state.to_s+'&event_id='+event.id.to_s
         format.html { redirect_to @redirect_str }
@@ -64,6 +64,16 @@ class EventsController < ApplicationController
         format.json { render :json => @event.errors, :status => :unprocessable_entity }
       end
     end
+  end
+
+  def send_event_reminders
+    @event = Event.find(params[:eid])
+    s = @event.street_number.to_s+' '+@event.street_name+' '+@event.city+' '+@event.state
+    loc = Location.near(s, @event.location_radious, :order => :distance)
+    loc.each do | loc_obj |
+      UserMailer.send_event_reminders(loc_obj.user).deliver 
+    end
+    redirect_to events_url
   end
 
   def remove_event

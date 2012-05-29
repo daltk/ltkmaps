@@ -20,5 +20,7 @@ SimpleFormBootstrap::Application.routes.draw do
 
   match '/remove_event' => 'events#remove_event'
 
+  match '/send_event_reminders' => 'events#send_event_reminders'
+
   
 end
