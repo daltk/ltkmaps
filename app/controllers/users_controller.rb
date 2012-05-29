@@ -77,9 +77,9 @@ class UsersController < ApplicationController
     h = Hash.new
     h['address'] = user_address
     h['gmaps'] = true
-    h['user_id'] = user.id
     @loc = Location.new(h)
     @loc.save
+
       
 
     fu_user_address = user.fu_street_number.to_s+' '+ user.fu_street_name.to_s + ' '+ user.fu_city.to_s + ' ' + user.fu_state.to_s
@@ -87,13 +87,14 @@ class UsersController < ApplicationController
     h1['address'] = fu_user_address
     h1['gmaps'] = true
     @loc1 = Location.new(h1)
-logger.info "fu_add: #{@loc1.inspect}"
-        @loc1.save
-        @loc.update_attributes(:user_id => @user.id)
+    @loc1.save
+
+        @loc.update_attribute('user_id',user.id)
+        @loc1.update_attribute('user_id',user.id)
 
         format.html { redirect_to '/', :notice => 'You have registered successfully. Please login to create your events.' }
         format.json { render :json => @user, :status => :created, :location => @user }
-        #UserMailer.registration_confirmation(@user).deliver 
+        UserMailer.registration_confirmation(@user).deliver 
 
       else
         format.html { render :action => "new" }

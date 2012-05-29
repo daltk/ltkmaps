@@ -47,13 +47,15 @@ class EventsController < ApplicationController
     h = Hash.new
     h['address'] = event_address
     h['gmaps'] = true
-    h['event_id'] = event.id
-logger.info "Hash = #{h.inspect}"
     respond_to do |format|
       if @event.save
         @loc = Location.new(h)
         @loc.save
-logger.info "Location = #{@loc.inspect}"
+
+        @loc.update_attribute('event_id',event.id)
+        @loc.update_attribute('user_id',session[:user])
+
+
         @redirect_str = '/locations?q='+event.id.to_s+'&search='+event.street_number.to_s+' '+event.street_name.to_s + ' ' + event.city.to_s + ' ' +event.state.to_s+'&event_id='+event.id.to_s
         format.html { redirect_to @redirect_str }
         format.json { render :json => @event, :status => :created, :location => @event }
