@@ -37,18 +37,18 @@
       :hint => "select the user role" %>
 
 
-    <%= f.input :category, :collection => ['Sports'],
+    <%= f.input :category, :collection => Catogiry.all.collect {|p| [ p.name, p.id ] },
       :item_wrapper_class => 'inline',
       :label => 'Category',
       :hint => "select the category" %>
 
 
-    <%= f.input :game, :collection => ['Soccer', 'Tennis'],
+    <%= f.input :game, :collection => Catogiry.all.collect {|p| [ p.name, p.id ] },
       :item_wrapper_class => 'inline',
       :label => 'Game',
       :hint => "select the game" %>
 
-    <%= f.input :specialization, :collection => ['Beginer', 'Intermediate', 'Expert'],
+    <%= f.input :specialization, :collection => Catogiry.all.collect {|p| [ p.name, p.id ] },
       :item_wrapper_class => 'inline',
       :label => 'Specialization',
       :hint => "select specialization" %>

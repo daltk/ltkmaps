@@ -1,0 +1,23 @@
+<script type="text/javascript">
+  $(function() {
+  alert("hi");
+  $("#catogiry_parent_id").change(function() {
+  alert("hi");
+  $.ajax({url: '/catogiries/get_children' ,
+  data: 'selected=' + this.value,
+  dataType: 'script'})
+  });
+  }); 
+</script>
+<%= simple_form_for(@catogiry) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :name %>
+    <%= f.select :parent_id, Catogiry.all.collect {|p| [ p.name, p.id ] }%>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
