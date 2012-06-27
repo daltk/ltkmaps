@@ -38,8 +38,8 @@ SimpleFormBootstrap::Application.configure do
           :domain => "gmail.com",
           :enable_starttls_auto => true,
           :authentication => :login,
-          :user_name => "rajkishan.m@gmail.com",
-          :password => "vegpuf123$"
+          :user_name => "circle.act.beta@gmail.com",
+          :password => "vegpuf135$"
       }
 
     config.action_mailer.raise_delivery_errors = true
