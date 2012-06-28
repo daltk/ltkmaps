@@ -31,7 +31,7 @@
     <%= f.input :password, :input_html => { :class => "span4" },
       :hint => "add your password here" %>
 
-    <%= f.input :role, :collection => ['Player','Coach'],
+    <%= f.input :role, :collection => ['Subscriber','Broker','User'],
       :as => :radio_buttons, :item_wrapper_class => 'inline',
       :label => 'Role',
       :hint => "select the user role" %>
@@ -45,13 +45,13 @@
 
     <%= f.input :game, :collection => Catogiry.all.collect {|p| [ p.name, p.id ] },
       :item_wrapper_class => 'inline',
-      :label => 'Game',
-      :hint => "select the game" %>
+      :label => 'Sub Category',
+      :hint => "select sub category" %>
 
     <%= f.input :specialization, :collection => Catogiry.all.collect {|p| [ p.name, p.id ] },
       :item_wrapper_class => 'inline',
-      :label => 'Specialization',
-      :hint => "select specialization" %>
+      :label => 'Service',
+      :hint => "select Service" %>
 
 
 
@@ -69,8 +69,7 @@
     <%= f.input :credentials, :input_html => { :class => "span4" },
       :hint => "add your credentials here" %>
 
-    <%= f.input :facebook, :input_html => { :class => "span4" },
-      :hint => "add your facebook username here" %>
+    
 
     <legend> Address Details</legend><br/>
 
