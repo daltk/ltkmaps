@@ -1,14 +1,4 @@
-<script type="text/javascript">
-  $(function() {
-  alert("hi");
-  $("#catogiry_parent_id").change(function() {
-  alert("hi");
-  $.ajax({url: '/catogiries/get_children' ,
-  data: 'selected=' + this.value,
-  dataType: 'script'})
-  });
-  }); 
-</script>
+
 <%= simple_form_for(@catogiry) do |f| %>
   <%= f.error_notification %>
 
