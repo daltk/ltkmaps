@@ -8,6 +8,8 @@ SimpleFormBootstrap::Application.routes.draw do
   resources :articles do
     resources :comments, :only => :create, :controller => 'articles/comments'
   end
+  
+  resources :catogiries
 
   root :to => 'articles#index'
 
