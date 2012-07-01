@@ -13,6 +13,44 @@ class UsersController < ApplicationController
   def login
   end
   
+  def search
+    if params[:search].present?
+      
+      @user = User.find_by_id(session[:user])
+      if @user.preffered_zone.nil? or @user.preffered_zone.blank? then
+        radious = 20
+      else
+        radious = @user.preffered_zone
+      end
+      
+      @locations = Location.near(params[:search], radious, :order => :distance)
+      @json = Location.near(params[:search], radious, :order => :distance).to_gmaps4rails do |location, marker|
+        marker.json({ :id => location.id, :address => location.address })
+        if location.address != params[:search] then
+          marker.picture({
+              :picture => "/assets/star2.png",
+              :width   => "30",
+              :height  => "30"
+            })
+        end
+      end
+      radious_for_circle = (radious*1609.34).round
+      @loc = Location.find_by_address(params[:search])
+  
+      @circles = '[
+                          {"lng": '+@loc.longitude.to_s+', "lat": '+@loc.latitude.to_s+', "radius": '+radious_for_circle.to_s+'},
+                 ]' unless @loc.nil?
+    else
+      @locations = Location.all
+      @json = Location.all.to_gmaps4rails
+
+      @circles = '[
+                          {"lng": -122.214897, "lat": 37.772323, "radius": 1000000}
+             ]'
+
+    end
+  end
+  
   def dashboard
     if params[:search].present?
       

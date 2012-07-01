@@ -3,6 +3,7 @@ SimpleFormBootstrap::Application.routes.draw do
 
   resources :events
   
+  match '/users/search' => 'users#search'
   match '/users/dashboard' => 'users#dashboard'
   match '/users/send_reminders' => 'users#send_reminders'
 

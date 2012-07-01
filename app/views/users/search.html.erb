@@ -14,21 +14,26 @@
   end
   %>
 
-
+    You have <b><%= _arr.uniq.count %></b> users near by you.<br/>
+    <%_arr.uniq.each do | _user |%>
+          <%= User.find_by_id(_user).email %> <br/>
+    <%end%>
     <br/>
     
-      
+        <% path = '/users/send_reminders?id='+_arr.uniq.to_s %>
+        <%= link_to 'Send Messages', path , :class => 'btn btn-primary' %> <br/>
   </p>
-
+  
 <%
     current_user = User.find_by_id(session[:user])
     url = '/users/search?search='+current_user.street_number.to_s+' '+current_user.street_name.to_s + ' ' + current_user.city.to_s + ' ' +current_user.state.to_s
     
 %>
   
-   <%= simple_form_for url, :html => { :class => 'form-horizontal' } do |f| %>
-  
 
+   <%= simple_form_for '/user/dashboard', :html => { :class => 'form-horizontal' } do |f| %>
+  
+    <div class="form-inputs">
       
       <legend>Search</legend>
       
@@ -43,17 +48,15 @@
                 <%= f.input :game, :collection => ['General/Repair/Install','Commercial'],
                       :item_wrapper_class => 'inline',
                       :label => 'Sub Category'%>
-                  
-      <%= f.input :preffered_zone, :collection => ['5', '10', '15','20','25','30','35','40','45','50'],
+                <%= f.input :preffered_zone, :collection => ['5', '10', '15','20','25','30','35','40','45','50'],
              :item_wrapper_class => 'inline',
              :label => 'Preffered Zone Radious',:input_html => { :class => "span1" }
-              %>
-        
+              %> 
+      
        <%= link_to '     Search      ', url , :class => 'btn btn-primary' %> <br/><br/>
-
+      
+    </div>
   <% end %>
-  
-  
     
 </div>
 
