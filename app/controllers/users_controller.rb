@@ -12,10 +12,48 @@ class UsersController < ApplicationController
 
   def login
   end
+  
+  def dashboard
+    if params[:search].present?
+      
+      @user = User.find_by_id(session[:user])
+      if @user.preffered_zone.nil? or @user.preffered_zone.blank? then
+        radious = 20
+      else
+        radious = @user.preffered_zone
+      end
+      
+      @locations = Location.near(params[:search], radious, :order => :distance)
+      @json = Location.near(params[:search], radious, :order => :distance).to_gmaps4rails do |location, marker|
+        marker.json({ :id => location.id, :address => location.address })
+        if location.address != params[:search] then
+          marker.picture({
+              :picture => "/assets/star2.png",
+              :width   => "30",
+              :height  => "30"
+            })
+        end
+      end
+      radious_for_circle = (radious*1609.34).round
+      @loc = Location.find_by_address(params[:search])
+  
+      @circles = '[
+                          {"lng": '+@loc.longitude.to_s+', "lat": '+@loc.latitude.to_s+', "radius": '+radious_for_circle.to_s+'},
+                 ]' unless @loc.nil?
+    else
+      @locations = Location.all
+      @json = Location.all.to_gmaps4rails
+
+      @circles = '[
+                          {"lng": -122.214897, "lat": 37.772323, "radius": 1000000}
+             ]'
+
+    end
+  end
 
   def logout
-      session[:user] = nil
-      redirect_to '/'
+    session[:user] = nil
+    redirect_to '/'
   end
 
   def sign_in
@@ -26,12 +64,11 @@ class UsersController < ApplicationController
     logger.info "@user skjdgas: #{@user.inspect}"
     if @user.nil? or @user.blank? then
       redirect_to '/login'
-    else
-         
+    else  
       session[:user] = @user[0].id
-      redirect_to '/events'
+      url = '/users/dashboard?search='+@user[0].street_number.to_s+' '+@user[0].street_name.to_s + ' ' + @user[0].city.to_s + ' ' +@user[0].state.to_s
+      redirect_to url
     end
-
   end
 
   # GET /users/1
@@ -72,22 +109,22 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
 
-    user = @user
-    user_address = user.street_number.to_s+' '+ user.street_name.to_s + ' '+ user.city.to_s + ' ' + user.state.to_s
-    h = Hash.new
-    h['address'] = user_address
-    h['gmaps'] = true
-    @loc = Location.new(h)
-    @loc.save
+        user = @user
+        user_address = user.street_number.to_s+' '+ user.street_name.to_s + ' '+ user.city.to_s + ' ' + user.state.to_s
+        h = Hash.new
+        h['address'] = user_address
+        h['gmaps'] = true
+        @loc = Location.new(h)
+        @loc.save
 
       
 
-    fu_user_address = user.fu_street_number.to_s+' '+ user.fu_street_name.to_s + ' '+ user.fu_city.to_s + ' ' + user.fu_state.to_s
-    h1 = Hash.new
-    h1['address'] = fu_user_address
-    h1['gmaps'] = true
-    @loc1 = Location.new(h1)
-    @loc1.save
+        fu_user_address = user.fu_street_number.to_s+' '+ user.fu_street_name.to_s + ' '+ user.fu_city.to_s + ' ' + user.fu_state.to_s
+        h1 = Hash.new
+        h1['address'] = fu_user_address
+        h1['gmaps'] = true
+        @loc1 = Location.new(h1)
+        @loc1.save
 
         @loc.update_attribute('user_id',user.id)
         @loc1.update_attribute('user_id',user.id)
@@ -130,4 +167,24 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  
+  def send_reminders
+    _user_arr = params[:id]
+    
+    logger.info "_user_arr : #{_user_arr.inspect}"
+    current_user = User.find_by_id(session[:user])
+    url = '/users/dashboard?search='+current_user.street_number.to_s+' '+current_user.street_name.to_s + ' ' + current_user.city.to_s + ' ' +current_user.state.to_s
+     
+    unless _user_arr.length >= 1 then
+      _user_arr.each do | u |   
+        
+        UserMailer.send_event_reminders(User.find_by_id(u)).deliver 
+      end
+      redirect_to_url
+    else
+      redirect_to url
+    end 
+  end
+  
 end

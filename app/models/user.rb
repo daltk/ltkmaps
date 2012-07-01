@@ -14,10 +14,5 @@ class User < ActiveRecord::Base
   validates_presence_of :street_name
   validates_presence_of :city
   validates_presence_of :state
-  validates_presence_of :fu_city
-  validates_presence_of :fu_state
-  validates_presence_of :fu_zipcode_1
-  validates_presence_of :fu_from
-  validates_presence_of :fu_to
   validates_presence_of :password
 end

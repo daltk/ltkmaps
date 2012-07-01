@@ -1,6 +1,6 @@
 class LocationsController < ApplicationController
   def index
-    if params[:search].present?
+     if params[:search].present?
       @event = Event.find(params[:event_id])
       @locations = Location.near(params[:search], @event.location_radious, :order => :distance)
       @json = Location.near(params[:search], @event.location_radious, :order => :distance).to_gmaps4rails do |location, marker|
@@ -30,6 +30,8 @@ class LocationsController < ApplicationController
     end
     
   end
+  
+  
 
   def show
     @location = Location.find(params[:id])

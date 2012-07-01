@@ -12,7 +12,34 @@
 
     <legend>User Details</legend>
 
-    <%= f.input :first_name, :input_html => { :class => "span4" },
+
+   <% unless session[:user] then %>
+        <%= f.input :role, :collection => ['Subscriber','Manager','User'],
+            :as => :radio_buttons, :item_wrapper_class => 'inline',
+            :label => 'Role',
+            :hint => "select the user role" %>
+  <% end %>
+
+    <%= f.input :category, :collection => ['Home Maintenance','Transportation','Roadside Assistance','Construction','Moving & Delivery','Courier'],
+      :item_wrapper_class => 'inline',
+      :label => 'Category',
+      :hint => "select the category" %>
+
+
+
+
+    <%= f.input :specialization, :collection => ['Plumber','Appliance Repair','Garage Doors','Electrician'],
+      :item_wrapper_class => 'inline',
+      :label => 'Service',
+      :hint => "select Service" %>
+    
+      <%= f.input :game, :collection => ['General/Repair/Install','Commercial'],
+      :item_wrapper_class => 'inline',
+      :label => 'Sub Category',
+      :hint => "select sub category" %>
+
+
+      <%= f.input :first_name, :input_html => { :class => "span4" },
       :hint => "add your first name here" %>
 
     <%= f.input :middle_name, :input_html => { :class => "span4" },
@@ -31,43 +58,7 @@
     <%= f.input :password, :input_html => { :class => "span4" },
       :hint => "add your password here" %>
 
-    <%= f.input :role, :collection => ['Subscriber','Broker','User'],
-      :as => :radio_buttons, :item_wrapper_class => 'inline',
-      :label => 'Role',
-      :hint => "select the user role" %>
-
-
-    <%= f.input :category, :collection => Catogiry.all.collect {|p| [ p.name, p.id ] },
-      :item_wrapper_class => 'inline',
-      :label => 'Category',
-      :hint => "select the category" %>
-
-
-    <%= f.input :game, :collection => Catogiry.all.collect {|p| [ p.name, p.id ] },
-      :item_wrapper_class => 'inline',
-      :label => 'Sub Category',
-      :hint => "select sub category" %>
-
-    <%= f.input :specialization, :collection => Catogiry.all.collect {|p| [ p.name, p.id ] },
-      :item_wrapper_class => 'inline',
-      :label => 'Service',
-      :hint => "select Service" %>
-
-
-
-    <%= f.input :account_status, :collection => ['Free','Premium'],
-      :as => :radio_buttons, :item_wrapper_class => 'inline',
-      :label => 'Account Status',
-      :hint => "select the account status" %>
-
-    <%= f.input :available, :input_html => { :class => "span2" },
-      :hint => "add your available time here" %>
-
-    <%= f.input :discount, :input_html => { :class => "span1" },
-      :hint => "add your offer discount % here" %>
-
-    <%= f.input :credentials, :input_html => { :class => "span4" },
-      :hint => "add your credentials here" %>
+    
 
     
 
@@ -88,9 +79,46 @@
     <%= f.input :zipcode_1, :input_html => { :class => "span4" },:label => 'Zip Code',
       :hint => "add your Zip Code here" %>
 
-    <%= f.input :zipcode_2, :input_html => { :class => "span4" },:label => 'Zip Code2',
-      :hint => "add your Zip Code 2 here" %>
 
+ <% if session[:user] then %>
+  <%= f.input :account_status, :collection => ['Free','Premium'],
+      :as => :radio_buttons, :item_wrapper_class => 'inline',
+      :label => 'Account Status',
+      :hint => "select the account status" %>
+   
+    <%= f.input :preffered_zone, :collection => ['5', '10', '15','20','25','30','35','40','45','50'],
+             :item_wrapper_class => 'inline',
+             :label => 'Preffered Zone Radious',:input_html => { :class => "span1" },
+             :hint => "select preferred zone radious in miles" %>
+
+    <%= f.input :available_date, :input_html => { :class => "span1" },
+      :label => 'Availability',
+      :hint => "add your available date & time here" %>
+
+    <%= f.input :discount, :input_html => { :class => "span1" },
+      :hint => "add your offer discount % here" %>
+
+    <%= f.input :credentials, :input_html => { :class => "span4" },
+      :hint => "add your credentials here" %>
+    
+    <% if User.find_by_id(session[:user]).role == 'Subscriber' %>
+      
+      <legend> Payment details </legend><br/>
+
+     <%= f.input :card_numer, :input_html => { :class => "span3" },
+      :label => 'Card Number',
+      :hint => "add your credit card number here" %>
+      
+      <%= f.input :expiry_date, :input_html => { :class => "span1" },
+      :label => 'Expiry Date',
+      :hint => "add your credit card expiry date here" %>
+    
+      <%= f.input :cvv, :input_html => { :class => "span1" },
+      :label => 'CVV',
+      :hint => "add your credit card CVV here" %>
+    
+    
+    <% end %>
 
     <legend> Future Address details </legend><br/>
 
@@ -114,6 +142,8 @@
 
     <%= f.input :fu_to, :input_html => { :class => "span1" },:label => 'Future To Date',
       :hint => "add your To Date here" %>
+<% end %>
+  
 
     <%= f.input :account_status, :collection => ['Yes'],
       :as => :radio_buttons, :item_wrapper_class => 'inline',

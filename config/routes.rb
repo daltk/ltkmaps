@@ -2,6 +2,9 @@ SimpleFormBootstrap::Application.routes.draw do
   resources :locations
 
   resources :events
+  
+  match '/users/dashboard' => 'users#dashboard'
+  match '/users/send_reminders' => 'users#send_reminders'
 
   resources :users
 
@@ -16,8 +19,7 @@ SimpleFormBootstrap::Application.routes.draw do
   match 'login' => 'users#login'
 
   match 'logout' => 'users#logout'
-
-
+ 
   match '/users/sign_in' => 'users#sign_in'
 
   match '/remove_event' => 'events#remove_event'

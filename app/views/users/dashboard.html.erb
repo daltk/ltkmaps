@@ -1,0 +1,60 @@
+<div class="hero-unit">
+  <% current_user = User.find_by_id(session[:user]) %>
+  <p>Welcome <b><%= current_user.first_name %></b>. You have registered as <b><%= current_user.role %></b> in our website.<br/>
+    To Edit your profile and change your settings click on
+    <% path = '/users/'+current_user.id.to_s+'/edit'%>
+    <%= link_to 'Advanced Settings', path , :class => 'btn btn-primary' %> <br/><br/>
+ 
+  <%
+  _arr = Array.new
+  @locations.each do | loc_obj |
+              unless loc_obj.user_id.nil? or loc_obj.user_id.blank? then
+                        _arr << loc_obj.user_id
+              end
+  end
+  %>
+
+    You have <b><%= _arr.uniq.count %></b> users near by you.<br/>
+    <%_arr.uniq.each do | _user |%>
+          <%= User.find_by_id(_user).email %> <br/>
+    <%end%>
+    <br/>
+    
+        <% path = '/users/send_reminders?id='+_arr.uniq.to_s %>
+        <%= link_to 'Send Reminders', path , :class => 'btn btn-primary' %> <br/>
+  </p>
+  
+   <%= simple_form_for '/user/dashboard', :html => { :class => 'form-horizontal' } do |f| %>
+  
+    <div class="form-inputs">
+      
+      <legend>Search</legend>
+      
+              <%= f.input :category, :collection => ['Home Maintenance','Transportation','Roadside Assistance','Construction','Moving & Delivery','Courier'],
+                      :item_wrapper_class => 'inline',
+                      :label => 'Category' %>
+      
+              <%= f.input :specialization, :collection => ['Plumber','Appliance Repair','Garage Doors','Electrician'],
+                      :item_wrapper_class => 'inline',
+                      :label => 'Service'%>
+          
+                <%= f.input :game, :collection => ['General/Repair/Install','Commercial'],
+                      :item_wrapper_class => 'inline',
+                      :label => 'Sub Category'%>
+                  
+      
+        <%= f.button :submit, :label => 'Search' %>
+      
+    </div>
+  <% end %>
+    
+</div>
+
+
+
+
+<%= gmaps("markers" => {"data" => @json},
+                  "map_options" => { "auto_adjust" => true, "minZoom" => 0},
+                  "circles" => { "data" => @circles    , "options" => { "fillColor" => "#00FFFF", "strokeColor" => "#FF0000" } }
+) %>
+
