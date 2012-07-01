@@ -8,20 +8,14 @@
   <%
   _arr = Array.new
   @locations.each do | loc_obj |
-              unless loc_obj.user_id.nil? or loc_obj.user_id.blank? then
-                        _arr << loc_obj.user_id
-              end
+                unless loc_obj.user_id.nil? or loc_obj.user_id.blank? then
+                            _arr << loc_obj.user_id
+                end
   end
   %>
 
-    You have <b><%= _arr.uniq.count %></b> users near by you.<br/>
-    <%_arr.uniq.each do | _user |%>
-          <%= User.find_by_id(_user).email %> <br/>
-    <%end%>
-    <br/>
     
-        <% path = '/users/send_reminders?id='+_arr.uniq.to_s %>
-        <%= link_to 'Send Messages', path , :class => 'btn btn-primary' %> <br/>
+       
   </p>
   
 <%
@@ -34,37 +28,45 @@
    <%= simple_form_for '/user/dashboard', :html => { :class => 'form-horizontal' } do |f| %>
   
     <div class="form-inputs">
-      
+    
       <legend>Search</legend>
-      
+    
               <%= f.input :category, :collection => ['Home Maintenance','Construction'],
-                      :item_wrapper_class => 'inline',
-                      :label => 'Category' %>
-      
+                        :item_wrapper_class => 'inline',
+                        :label => 'Category' %>
+    
               <%= f.input :specialization, :collection => ['Plumber','Appliance Repair','Garage Doors','Electrician'],
-                      :item_wrapper_class => 'inline',
-                      :label => 'Service'%>
-          
+                        :item_wrapper_class => 'inline',
+                        :label => 'Service'%>
+        
                 <%= f.input :game, :collection => ['General/Repair/Install','Commercial'],
-                      :item_wrapper_class => 'inline',
-                      :label => 'Sub Category'%>
+                        :item_wrapper_class => 'inline',
+                        :label => 'Sub Category'%>
                 <%= f.input :preffered_zone, :collection => ['5', '10', '15','20','25','30','35','40','45','50'],
-             :item_wrapper_class => 'inline',
-             :label => 'Preffered Zone Radious',:input_html => { :class => "span1" }
+               :item_wrapper_class => 'inline',
+               :label => 'Preffered Zone Radious',:input_html => { :class => "span1" }
               %> 
-      
+    
        <%= link_to '     Search      ', url , :class => 'btn btn-primary' %> <br/><br/>
-      
+    
     </div>
   <% end %>
-    
+  
+    <legend>Search Results</legend>
+    You have <b><%= _arr.uniq.count %></b> users near by you.<br/>
+    <%_arr.uniq.each do | _user |%>
+            <%= User.find_by_id(_user).email %> <br/>
+    <%end%>
+    <br/>
+     <% path = '/users/send_reminders?id='+_arr.uniq.to_s %>
+     <%= link_to 'Send Messages', path , :class => 'btn btn-primary' %> <br/>
 </div>
 
 
 
 
 <%= gmaps("markers" => {"data" => @json},
-                  "map_options" => { "auto_adjust" => true, "minZoom" => 0},
-                  "circles" => { "data" => @circles    , "options" => { "fillColor" => "#00FFFF", "strokeColor" => "#FF0000" } }
+                    "map_options" => { "auto_adjust" => true, "minZoom" => 0},
+                    "circles" => { "data" => @circles    , "options" => { "fillColor" => "#00FFFF", "strokeColor" => "#FF0000" } }
 ) %>
 

@@ -30,8 +30,9 @@
   
 
       
-      <legend>Search</legend>
-      
+      <legend>Search</legend> 
+
+           
               <%= f.input :category, :collection => ['Home Maintenance','Construction'],
                       :item_wrapper_class => 'inline',
                       :label => 'Category' %>
@@ -48,7 +49,9 @@
              :item_wrapper_class => 'inline',
              :label => 'Preffered Zone Radious',:input_html => { :class => "span1" }
               %>
-        
+        Location  <%= text_field_tag :search, params[:search], :size => "1200", :placeholder => "Search Location",:class => "round shadow" %>
+    
+      
        <%= link_to '     Search      ', url , :class => 'btn btn-primary' %> <br/><br/>
 
   <% end %>

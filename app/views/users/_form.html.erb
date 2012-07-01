@@ -12,15 +12,17 @@
 
     <legend>User Details</legend>
 
-
+   
    <% unless session[:user] then %>
         <%= f.input :role, :collection => ['Subscriber','Manager','User'],
             :as => :radio_buttons, :item_wrapper_class => 'inline',
             :label => 'Role',
-            :hint => "select the user role" %>
+            :hint => "select the user role" %> 
+   <% else%>
+  <h3>Role : <%= User.find_by_id(session[:user]).role %></h3><br/><br/>
   <% end %>
 
-    <%= f.input :category, :collection => ['Home Maintenance','Transportation','Roadside Assistance','Construction','Moving & Delivery','Courier'],
+    <%= f.input :category, :collection => ['Home Maintenance','Construction'],
       :item_wrapper_class => 'inline',
       :label => 'Category',
       :hint => "select the category" %>
