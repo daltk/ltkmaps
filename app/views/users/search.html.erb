@@ -54,8 +54,9 @@
   
     <legend>Search Results</legend>
     You have <b><%= _arr.uniq.count %></b> users near by you.<br/>
-    <%_arr.uniq.each do | _user |%>
-            <%= User.find_by_id(_user).email %> <br/>
+    <%_arr.uniq.each do | _user |
+         @u = User.find_by_id(_user) %>
+            <br/>
     <%end%>
     <br/>
      <% path = '/users/send_reminders?id='+_arr.uniq.to_s %>
