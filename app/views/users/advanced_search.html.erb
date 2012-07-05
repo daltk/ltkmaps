@@ -63,8 +63,7 @@
       <%= @u.email %> : <%= @u.category %> : <%= @u.specialization %> : <%= @u.game %><br/>
       <% path = '/users/send_reminders?id='+_arr.uniq.to_s %>
     <%= link_to 'Send Messages', path , :class => 'btn btn-primary' %> <br/>
-  <% else %>
-      You Don't have any users near by you.<br/>
+  
     <% end %>
             
    <% end %>
