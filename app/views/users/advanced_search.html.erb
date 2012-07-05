@@ -59,8 +59,8 @@
       if (@u.category == @cat) and (@u.specialization == @service) and (@u.game == @subcat) then
         
         %>
-      You have Below users near by you.<br/>
-      <%= @u.email %> : <%= @u.category %> : <%= @u.specialization %> : <%= @u.game %><br/>
+      You have Below users near by you for search criteria <%= @u.category %> >> <%= @u.specialization %> >> <%= @u.game %>.<br/>
+      <%= @u.email %> <br/>
       <% path = '/users/send_reminders?id='+_arr.uniq.to_s %>
     <%= link_to 'Send Messages', path , :class => 'btn btn-primary' %> <br/>
   
