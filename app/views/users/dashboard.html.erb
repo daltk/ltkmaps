@@ -1,5 +1,16 @@
 <div class="hero-unit">
-  <% current_user = User.find_by_id(session[:user]) %>
+
+  <%
+
+     unless session[:user].nil? or session[:user].blank? then
+        current_user = User.find_by_id(session[:user])
+      else
+        current_user = User.find_by_id(cookies[:current_user])
+      end
+   
+  %>
+   
+
   <p>Welcome <b><%= current_user.first_name %></b>. You have registered as <b><%= current_user.role %></b> in our website.<br/>
     To Edit your profile and change your settings click on
     <% path = '/users/'+current_user.id.to_s+'/edit'%>
@@ -21,9 +32,7 @@
   </p>
   
   <%
-      current_user = User.find_by_id(session[:user])
-      url = '/users/search?search='+current_user.street_number.to_s+' '+current_user.street_name.to_s + ' ' + current_user.city.to_s + ' ' +current_user.state.to_s
-      
+      url = '/users/search?search='+current_user.street_number.to_s+' '+current_user.street_name.to_s + ' ' + current_user.city.to_s + ' ' +current_user.state.to_s 
   %>
     
   <form method="post" name="myform" id="new_design_directory" action="/users/advanced_search">

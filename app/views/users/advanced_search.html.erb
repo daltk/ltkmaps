@@ -59,7 +59,7 @@
       
       
       <% end %>
-     <% path = '/users/send_reminders?id='+_arr.uniq.to_s %>
+     <% path = '/users/send_user_reminders?id='+_arr.uniq.join(',').to_s+'&search='+params[:search] %>
        <%= link_to 'Send Messages', path , :class => 'btn btn-primary' %> <br/>
     <br/>
   

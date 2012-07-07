@@ -108,8 +108,13 @@ class UsersController < ApplicationController
   
   def dashboard
     if params[:search].present?
+      unless session[:user].nil? or session[:user].blank? then
+        cookies[:current_user] = session[:user]
+        @user = User.find_by_id(session[:user])
+      else
+        @user = User.find_by_id(cookies[:current_user])
+      end
       
-      @user = User.find_by_id(session[:user])
       if @user.preffered_zone.nil? or @user.preffered_zone.blank? then
         radious = 20
       else
@@ -280,4 +285,16 @@ class UsersController < ApplicationController
     end 
   end
   
-end
+  
+  def send_user_reminders
+    _user_arr = params[:id].split(",")  
+    _user_arr.each do | u |   
+      UserMailer.send_event_reminders(User.find_by_id(u)).deliver 
+    end
+    current_user = User.find_by_id(cookies[:current_user])
+    url = '/users/dashboard?search='+params[:search]+'&user_id='+current_user.id.to_s
+    redirect_to url
+  end
+    
+    
+  end
