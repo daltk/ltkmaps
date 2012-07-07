@@ -14,6 +14,7 @@ class UsersController < ApplicationController
   end
   
   def advanced_search
+    @user = session[:user]
    if params[:search].present?
       
       unless params[:radious].nil? or params[:radious].blank? then
@@ -28,10 +29,20 @@ class UsersController < ApplicationController
       
       @locations = Location.near(params[:search], radious, :order => :distance)
       
+      loc_arr = Array.new
       
+      @locations.each do | loc |
+        @u = User.find_by_id(loc.user_id)
+         if (@u.category == @cat) or (@u.specialization == @service) or (@u.game == @subcat) then
+           loc_arr << loc
+         end
+      end
       
-      @json = Location.near(params[:search], radious, :order => :distance).to_gmaps4rails do |location, marker|
+      @locations_new = loc_arr
+      
+      @json = @locations_new.to_gmaps4rails do |location, marker|
         marker.json({ :id => location.id, :address => location.address })
+        logger.info "location : #{location.inspect}"
         if location.address != params[:search] then
           marker.picture({
               :picture => "/assets/star2.png",

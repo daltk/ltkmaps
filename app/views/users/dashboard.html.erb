@@ -56,7 +56,8 @@
           <option value="40">40</option>
           <option value="45">45</option>
     <option value="50">50</option></select></div></div>
-    Location  <input class="round shadow" id="search" name="search" placeholder="Search Location" size="3000" type="text" value="11045 Abbotts Station Drive Johns Creek GA" />
+<% session[:search_param] = current_user.street_number.to_s+' '+current_user.street_name.to_s + ' ' + current_user.city.to_s + ' ' +current_user.state.to_s %>
+    Location  <input class="round shadow" id="search" name="search" placeholder="Search Location" size="3000" type="text" value="<%= current_user.street_number.to_s+' '+current_user.street_name.to_s + ' ' + current_user.city.to_s + ' ' +current_user.state.to_s %>" />
     <input type="submit" value="search" />
   </form>
   
