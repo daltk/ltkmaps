@@ -1,7 +1,6 @@
 <div class="hero-unit">
     
   <%#= params[:search].inspect %>
-  
     <%
     _arr = Array.new
     @locations_new.each do | loc_obj |
@@ -52,7 +51,7 @@
   
     <%
     count = 0 
-    _arr.each do | _user |
+    _arr.uniq.each do | _user |
     
           @u = User.find_by_id(_user) %>
           <%= @u.email %> <br/>
