@@ -20,7 +20,7 @@
       <tr>
         <td><%= loc.id %>
         <td><%= loc.address %></td>
-        <td><%= User.find_by_id(loc.user_id).email %></td>
+        <td></td>
         <td>
           <%= link_to 'Edit', edit_location_path(loc) %>  /
           <%= link_to 'Delete', loc, :confirm => 'Are you sure?', :method => :delete %>
