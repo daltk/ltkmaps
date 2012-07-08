@@ -52,8 +52,13 @@ class UsersController < ApplicationController
         end
       end
       radious_for_circle = (radious*1609.34).round
+      
       @loc = Location.find_by_address(params[:search])
-  
+      
+      if @loc.nil? then
+        @loc = @locations_new[0]
+      end      
+      
       @circles = '[
                           {"lng": '+@loc.longitude.to_s+', "lat": '+@loc.latitude.to_s+', "radius": '+radious_for_circle.to_s+'},
                  ]' unless @loc.nil?
