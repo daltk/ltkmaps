@@ -27,15 +27,21 @@ class UsersController < ApplicationController
       @service = params[:service]
       @subcat = params[:subcat]
       
+      
       @locations = Location.near(params[:search], radious, :order => :distance)
       
       loc_arr = Array.new
       
       @locations.each do | loc |
         @u = User.find_by_id(loc.user_id)
-         if (@u.category == @cat) or (@u.specialization == @service) or (@u.game == @subcat) then
+         
+         if @cat.blank? and @service.blank? and @subcat.blank?
            loc_arr << loc
-         end
+         else
+           if (@u.category == @cat) or (@u.specialization == @service) or (@u.game == @subcat) then
+             loc_arr << loc
+           end
+         end 
       end
       
       @locations_new = loc_arr
