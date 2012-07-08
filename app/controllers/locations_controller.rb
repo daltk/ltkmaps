@@ -41,7 +41,9 @@ class LocationsController < ApplicationController
     @location = Location.new
   end
 
- 
+  def list
+    @locations = Location.all
+  end
 
 
 

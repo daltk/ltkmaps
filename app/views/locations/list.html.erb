@@ -1,0 +1,33 @@
+<% content_for :breadcrumb do %>
+  <li class="active">Home</li>
+<% end %>
+
+<h1>Listing Location</h1>
+
+
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Location ID</th>
+      <th>Address</th>
+      <th>User</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @locations.each do |loc| %>
+      <tr>
+        <td><%= loc.id %>
+        <td><%= loc.address %></td>
+        <td><%= User.find_by_id(loc.user_id).email %></td>
+        <td>
+          <%= link_to 'Edit', edit_location_path(loc) %>  /
+          <%= link_to 'Delete', loc, :confirm => 'Are you sure?', :method => :delete %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+

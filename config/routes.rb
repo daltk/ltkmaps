@@ -1,4 +1,5 @@
 SimpleFormBootstrap::Application.routes.draw do
+   match '/locations/list' => 'locations#list'
   resources :locations
 
   resources :events
