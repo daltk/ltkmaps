@@ -150,6 +150,6 @@
   <%= @user.blank_field_5 %>
 </p>
 
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
+<% url = 'dashboard?search='+@user.street_number.to_s+' '+@user.street_name.to_s + ' ' + @user.city.to_s + ' ' +@user.state.to_s %>
+<%= link_to 'Edit', edit_user_path(@user) %> | <%= link_to 'Back to Home', url %>
 
