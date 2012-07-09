@@ -36,10 +36,14 @@ class UsersController < ApplicationController
         @u = User.find_by_id(loc.user_id)
          
          if @cat.blank? and @service.blank? and @subcat.blank?
-           loc_arr << loc
+           if @u.role == 'Subscriber' 
+             loc_arr << loc
+           end
          else
            if (@u.category == @cat) or (@u.specialization == @service) or (@u.game == @subcat) then
-             loc_arr << loc
+             if @u.role == 'Subscriber' 
+               loc_arr << loc
+             end
            end
          end 
       end
