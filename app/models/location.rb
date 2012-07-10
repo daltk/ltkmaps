@@ -16,7 +16,7 @@ class Location < ActiveRecord::Base
 
    def gmaps4rails_title
       # add here whatever text you desire
-      "#{self.address}"
+      "#{self.user.first_name} #{self.user.last_name}"
    end
 
   #def gmaps4rails_marker_picture
