@@ -7,9 +7,6 @@ class User < ActiveRecord::Base
   validates_presence_of :phone
   validates_presence_of :email
   validates_presence_of :role
-  validates_presence_of :category
-  validates_presence_of :game
-  validates_presence_of :specialization
   validates_presence_of :street_number
   validates_presence_of :street_name
   validates_presence_of :city

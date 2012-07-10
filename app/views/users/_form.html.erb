@@ -22,23 +22,7 @@
   <h3>Role : <%= User.find_by_id(session[:user]).role %></h3><br/><br/>
   <% end %>
 
-    <%= f.input :category, :collection => ['Home Maintenance','Construction'],
-      :item_wrapper_class => 'inline',
-      :label => 'Category',
-      :hint => "select the category" %>
 
-
-
-
-    <%= f.input :specialization, :collection => ['Plumber','Appliance Repair','Garage Doors','Electrician'],
-      :item_wrapper_class => 'inline',
-      :label => 'Service',
-      :hint => "select Service" %>
-    
-      <%= f.input :game, :collection => ['General/Repair/Install','Commercial'],
-      :item_wrapper_class => 'inline',
-      :label => 'Sub Category',
-      :hint => "select sub category" %>
 
 
       <%= f.input :first_name, :input_html => { :class => "span4" },
@@ -83,6 +67,25 @@
 
 
  <% if session[:user] then %>
+   
+    <%= f.input :category, :collection => ['Home Maintenance','Construction'],
+      :item_wrapper_class => 'inline',
+      :label => 'Category',
+      :hint => "select the category" %>
+
+
+
+
+    <%= f.input :specialization, :collection => ['Plumber','Appliance Repair','Garage Doors','Electrician'],
+      :item_wrapper_class => 'inline',
+      :label => 'Service',
+      :hint => "select Service" %>
+    
+      <%= f.input :game, :collection => ['General/Repair/Install','Commercial'],
+      :item_wrapper_class => 'inline',
+      :label => 'Sub Category',
+      :hint => "select sub category" %>
+    
   <%= f.input :account_status, :collection => ['Free','Premium'],
       :as => :radio_buttons, :item_wrapper_class => 'inline',
       :label => 'Account Status',
