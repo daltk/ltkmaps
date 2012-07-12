@@ -6,7 +6,7 @@ class UserMailer < ActionMailer::Base
 
    def send_event_reminders(user)
     @user = user
-    mail(:to => user.email, :subject => "A Service Order has be identified in your area", :from => "rajkishan.m@gmail.com")
+    mail(:to => user.email, :subject => "Katching ! A Service Order has be identified in your area", :from => "rajkishan.m@gmail.com")
   end
 
 end

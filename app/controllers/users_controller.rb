@@ -15,7 +15,7 @@ class UsersController < ApplicationController
   
   def advanced_search
     @user = session[:user]
-   if params[:search].present?
+    if params[:search].present?
       
       unless params[:radious].nil? or params[:radious].blank? then
         radious = params[:radious].to_i
@@ -35,17 +35,17 @@ class UsersController < ApplicationController
       @locations.each do | loc |
         @u = User.find_by_id(loc.user_id)
          
-         if @cat.blank? and @service.blank? and @subcat.blank?
-           if @u.role == 'Subscriber' 
-             loc_arr << loc
-           end
-         else
-           if (@u.category == @cat) or (@u.specialization == @service) or (@u.game == @subcat) then
-             if @u.role == 'Subscriber' 
-               loc_arr << loc
-             end
-           end
-         end 
+        if @cat.blank? and @service.blank? and @subcat.blank?
+          if @u.role == 'Subscriber'
+            loc_arr << loc
+          end
+        else
+          if (@u.category == @cat) or (@u.specialization == @service) or (@u.game == @subcat) then
+            if @u.role == 'Subscriber'
+              loc_arr << loc
+            end
+          end
+        end
       end
       
       @locations_new = loc_arr
@@ -307,9 +307,14 @@ class UsersController < ApplicationController
       UserMailer.send_event_reminders(User.find_by_id(u)).deliver 
     end
     current_user = User.find_by_id(cookies[:current_user])
-    url = '/users/dashboard?search='+params[:search]+'&user_id='+current_user.id.to_s
+    url = '/users/thankyou?search='+params[:search]+'&user_id='+current_user.id.to_s
     redirect_to url
   end
-    
-    
+
+
+  def thankyou
+    @search = params[:search]
   end
+    
+    
+end

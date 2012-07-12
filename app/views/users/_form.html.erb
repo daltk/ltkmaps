@@ -19,7 +19,7 @@
             :label => 'Role',
             :hint => "select the user role" %> 
    <% else%>
-  <h3>Role : <%= User.find_by_id(session[:user]).role %></h3><br/><br/>
+  <h3>Role : <%= User.find_by_id(cookies[:current_user]).role %></h3><br/><br/>
   <% end %>
 
 
@@ -46,7 +46,7 @@
 
     
 
-    <legend> Address Details</legend><br/>
+    <legend> Default Address Details</legend><br/>
 
     <%= f.input :street_number, :input_html => { :class => "span1" },
       :hint => "add your street number here" %>
@@ -64,7 +64,7 @@
       :hint => "add your Zip Code here" %>
 
 
- <% if session[:user] then %>
+ <% if (cookies[:current_user] and !(params[:controller] == 'users' and params[:action] == 'new')) then %>
    
     <%= f.input :category, :collection => ['Home Maintenance','Construction'],
       :item_wrapper_class => 'inline',
@@ -104,7 +104,7 @@
     <%= f.input :credentials, :input_html => { :class => "span4" },
       :hint => "add your credentials here" %>
     
-    <% if User.find_by_id(session[:user]).role == 'Subscriber' %>
+    <% if User.find_by_id(cookies[:current_user]).role == 'Subscriber' %>
       
       <legend> Payment details </legend><br/>
 

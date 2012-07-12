@@ -4,10 +4,13 @@ class ArticlesController < ApplicationController
   def index
     @articles = Article.all
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render :json => @articles }
+    if session[:user]
+      @u = User.find(session[:user])
+      url = '/users/dashboard?search='+@u.street_number.to_s+' '+@u.street_name.to_s + ' ' + @u.city.to_s + ' ' +@u.state.to_s
+      redirect_to url
     end
+
+
   end
 
   # GET /articles/1

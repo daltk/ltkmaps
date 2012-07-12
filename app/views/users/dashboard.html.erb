@@ -2,58 +2,58 @@
 
   <%
 
-     unless session[:user].nil? or session[:user].blank? then
-        current_user = User.find_by_id(session[:user])
-      else
-        current_user = User.find_by_id(cookies[:current_user])
-      end
-   
-  %>
-   
+  unless session[:user].nil? or session[:user].blank? then
+    current_user = User.find_by_id(session[:user])
+  else
+    current_user = User.find_by_id(cookies[:current_user])
+  end
+
+%>
+
 
   <p>Welcome <b><%= current_user.first_name %></b>. You have registered as <b><%= current_user.role %></b> in our website.<br/>
     To Edit your profile and change your settings click on
     <% path = '/users/'+current_user.id.to_s+'/edit'%>
     <%= link_to 'Advanced Settings', path , :class => 'btn btn-primary' %> <br/><br/>
- 
-  <%
-  _arr = Array.new
-  @locations.each do | loc_obj |
-                unless loc_obj.user_id.nil? or loc_obj.user_id.blank? then
-                            _arr << loc_obj.user_id
-                end
-  end
+
+    <%
+    _arr = Array.new
+    @locations.each do | loc_obj |
+      unless loc_obj.user_id.nil? or loc_obj.user_id.blank? then
+        _arr << loc_obj.user_id
+      end
+    end
   %>
 
 
     <br/>
-    
-    
+
+
   </p>
-  
+
   <%
-      url = '/users/search?search='+current_user.street_number.to_s+' '+current_user.street_name.to_s + ' ' + current_user.city.to_s + ' ' +current_user.state.to_s 
-  %>
-    
+  url = '/users/search?search='+current_user.street_number.to_s+' '+current_user.street_name.to_s + ' ' + current_user.city.to_s + ' ' +current_user.state.to_s
+%>
+
   <form method="post" name="myform" id="new_design_directory" action="/users/advanced_search">
-    
+
     <legend>Search</legend> 
-    
-    
+
+
     <div class="control-group select required"><label class="select required control-label" for="_users_search_search_11045_Abbotts_Station_Drive_Johns_Creek_GA_category"><abbr title="required">*</abbr> Category</label><div class="controls"><select class="select required" id="_users_search_search_11045_Abbotts_Station_Drive_Johns_Creek_GA_category" name="cat"><option value=""></option>
           <option value="Home Maintenance">Home Maintenance</option>
-    <option value="Construction">Construction</option></select></div></div>
-    
+          <option value="Construction">Construction</option></select></div></div>
+
     <div class="control-group select required"><label class="select required control-label" for="_users_search_search_11045_Abbotts_Station_Drive_Johns_Creek_GA_specialization"><abbr title="required">*</abbr> Service</label><div class="controls"><select class="select required" id="_users_search_search_11045_Abbotts_Station_Drive_Johns_Creek_GA_specialization" name="service"><option value=""></option>
           <option value="Plumber">Plumber</option>
           <option value="Appliance Repair">Appliance Repair</option>
           <option value="Garage Doors">Garage Doors</option>
-    <option value="Electrician">Electrician</option></select></div></div>
-    
+          <option value="Electrician">Electrician</option></select></div></div>
+
     <div class="control-group select required"><label class="select required control-label" for="_users_search_search_11045_Abbotts_Station_Drive_Johns_Creek_GA_game"><abbr title="required">*</abbr> Sub Category</label><div class="controls"><select class="select required" id="_users_search_search_11045_Abbotts_Station_Drive_Johns_Creek_GA_game" name="subcat"><option value=""></option>
           <option value="General/Repair/Install">General/Repair/Install</option>
-    <option value="Commercial">Commercial</option></select></div></div>
-    
+          <option value="Commercial">Commercial</option></select></div></div>
+
     <div class="control-group select required"><label class="select required control-label" for="_users_search_search_11045_Abbotts_Station_Drive_Johns_Creek_GA_preffered_zone"><abbr title="required">*</abbr> Preffered Zone Radious</label><div class="controls"><select class="select required span1" id="_users_search_search_11045_Abbotts_Station_Drive_Johns_Creek_GA_preffered_zone" name="radious"><option value=""></option>
           <option value="5">5</option>
           <option value="10">10</option>
@@ -64,22 +64,22 @@
           <option value="35">35</option>
           <option value="40">40</option>
           <option value="45">45</option>
-    <option value="50">50</option></select></div></div>
-<% session[:search_param] = current_user.street_number.to_s+' '+current_user.street_name.to_s + ' ' + current_user.city.to_s + ' ' +current_user.state.to_s %>
-    Location  <input class="round shadow" id="search" name="search" placeholder="Search Location" size="3000" type="text" value="<%= current_user.street_number.to_s+' '+current_user.street_name.to_s + ' ' + current_user.city.to_s + ' ' +current_user.state.to_s %>" />
+          <option value="50">50</option></select></div></div>
+    <% session[:search_param] = current_user.street_number.to_s+' '+current_user.street_name.to_s + ' ' + current_user.city.to_s + ' ' +current_user.state.to_s %>
+    Current Location  <input class="round shadow" id="search" name="search" placeholder="Search Location" size="3000" type="text" value="<%= current_user.street_number.to_s+' '+current_user.street_name.to_s + ' ' + current_user.city.to_s + ' ' +current_user.state.to_s %>" />
     <input type="submit" value="search" />
   </form>
-  
-  
-  
-  
+
+
+
+
 </div>
 
 
 
 
 <%= gmaps("markers" => {"data" => @json},
-                  "map_options" => { "auto_adjust" => true, "minZoom" => 0},
-                  "circles" => { "data" => @circles    , "options" => { "fillColor" => "#00FFFF", "strokeColor" => "#FF0000" } }
+  "map_options" => { "auto_adjust" => true, "minZoom" => 0},
+  "circles" => { "data" => @circles    , "options" => { "fillColor" => "#00FFFF", "strokeColor" => "#FF0000" } }
 ) %>
 
